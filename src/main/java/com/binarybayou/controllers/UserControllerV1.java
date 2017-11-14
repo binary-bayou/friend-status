@@ -6,10 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,6 @@ public class UserControllerV1 {
     @Autowired
     private UserManager manager;
 
-
     @ApiOperation(value = "Get a list of all Users in the system", response = ResponseEntity.class)
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<UserView>> getAll() {
@@ -37,6 +33,19 @@ public class UserControllerV1 {
 
         return responseEntity;
     }
+
+    @ApiOperation(value = "Add a user", response = ResponseEntity.class)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)   //sets the mapping url and the HTTP method
+    public ResponseEntity<Long> add(@RequestBody UserView view) {
+
+        ResponseEntity<Long> responseEntity;
+
+        responseEntity = new ResponseEntity<>(manager.add(view), HttpStatus.OK);
+
+        return responseEntity;
+    }
+
+
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {

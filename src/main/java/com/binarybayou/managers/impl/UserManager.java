@@ -2,6 +2,7 @@ package com.binarybayou.managers.impl;
 
 import com.binarybayou.converters.UserConverter;
 import com.binarybayou.domains.User;
+import com.binarybayou.exceptions.ValidationException;
 import com.binarybayou.managers.IManager;
 import com.binarybayou.ras.impl.UserResourceAccessor;
 import com.binarybayou.views.UserView;
@@ -51,8 +52,16 @@ public class UserManager implements IManager<UserView> {
     }
 
     @Override
-    public Long add(UserView view){
-        return null;
+    public Long add(UserView view) {
+        Long id = -1L;
+        try {
+            id = userRas.add(userConverter.convertToDomain(view));
+        } catch (ValidationException e) {
+            e.printStackTrace();
+
+        }
+
+        return id;
     }
 
     @Override

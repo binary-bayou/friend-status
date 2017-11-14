@@ -14,6 +14,7 @@ public class UserConverter {
     public UserView convertToView(User domain) {
         UserView view = new UserView(); //this will be the newly created View version of the domain Object
         view.setId(domain.getId());
+        view.setUsername(domain.getUsername());
         view.setFirstName(domain.getFirstName());
         view.setLastName(domain.getLastName());
         view.setEmail(domain.getEmail());
@@ -25,11 +26,12 @@ public class UserConverter {
     public User convertToDomain(UserView view) throws ValidationException {
         User domain = new User();   //this will be the newly created Domain version of the view Object
         domain.setId(view.getId());
+        domain.setUsername(view.getUsername());
         domain.setFirstName(view.getFirstName());
         domain.setLastName(view.getLastName());
         domain.setEmail(view.getEmail());
         domain.setPhoneNumber(view.getPhoneNumber());
-        
+
         return domain;
     }
 }
