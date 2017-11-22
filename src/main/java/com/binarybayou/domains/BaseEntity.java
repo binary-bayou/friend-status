@@ -1,6 +1,7 @@
 package com.binarybayou.domains;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Joshua Eaton on 8/28/17.
@@ -12,7 +13,8 @@ public abstract class BaseEntity {
     private Long id;
 
     @Version
-    private Long version;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date version;
 
     public Long getId() {
         return id;
@@ -22,7 +24,7 @@ public abstract class BaseEntity {
         this.id = id;
     }
 
-    public Long getVersion() { return version; }
+    public Date getVersion() { return version; }
 
-    public void setVersion(Long version) { this.version = version; }
+    public void setVersion(Date version) { this.version = version; }
 }

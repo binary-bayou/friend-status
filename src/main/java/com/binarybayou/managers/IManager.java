@@ -1,5 +1,7 @@
 package com.binarybayou.managers;
 
+import com.binarybayou.views.UserView;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public interface IManager<T> {
 
     Long add(T view);
 
-    Long update(T view);
+    UserView update(T view);
 
     void delete(Long id);
 }

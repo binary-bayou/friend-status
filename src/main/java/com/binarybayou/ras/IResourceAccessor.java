@@ -1,5 +1,7 @@
 package com.binarybayou.ras;
 
+import com.binarybayou.domains.User;
+
 /**
  * Created by Joshua Eaton on 8/15/17.
  */
@@ -10,7 +12,7 @@ public interface IResourceAccessor<T> {
 
     Long add(T entity);
 
-    Long update(T entity);
+    User update(T entity);
 
     void delete(Long id);
 }

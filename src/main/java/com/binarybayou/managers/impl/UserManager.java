@@ -8,6 +8,7 @@ import com.binarybayou.ras.impl.UserResourceAccessor;
 import com.binarybayou.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.ws.rs.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +30,23 @@ public class UserManager implements IManager<UserView> {
         UserView userView;
         User user = userRas.find(id);
 
-        /*
         if (user == null) {
             throw new NotFoundException(String.valueOf(id));
         } else {
             userView = userConverter.convertToView(user);
-        } */
-        userView = userConverter.convertToView(user);
-        userView.setId(1L); //mock data
+        }
+
         return userView;
     }
 
     @Override
     public List<UserView> getAll(){
-       //all placeholder code. Not final version
-        UserView userView = new UserView();
-        ArrayList<UserView> viewList = new ArrayList<>();
-        userView.setId(1L); //mock data
-        viewList.add(userView);
+
+        List<UserView> viewList = new ArrayList<>();
+
+        for (User u : userRas.findAll() ) {
+            viewList.add(userConverter.convertToView(u));
+        }
 
         return viewList;
     }
@@ -58,19 +58,26 @@ public class UserManager implements IManager<UserView> {
             id = userRas.add(userConverter.convertToDomain(view));
         } catch (ValidationException e) {
             e.printStackTrace();
-
         }
 
         return id;
     }
 
     @Override
-    public Long update(UserView view){
-        return null;
+    public UserView update(UserView view){
+        User user = null;
+
+        try {
+            user = userRas.update(userConverter.convertToDomain(view));
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
+        return userConverter.convertToView(user);
     }
 
     @Override
     public void delete(Long id) {
-
+        userRas.delete(id);
     }
 }

@@ -34,6 +34,14 @@ public class UserControllerV1 {
         return responseEntity;
     }
 
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity getUserById(@PathVariable("id") Long id) {
+
+        return new ResponseEntity(manager.get(id),HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "Add a user", response = ResponseEntity.class)
     @RequestMapping(value = "/add", method = RequestMethod.POST)   //sets the mapping url and the HTTP method
     public ResponseEntity<Long> add(@RequestBody UserView view) {
@@ -45,7 +53,16 @@ public class UserControllerV1 {
         return responseEntity;
     }
 
+    @ApiOperation(value = "Update a user", response = ResponseEntity.class)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ResponseEntity<UserView> update(@RequestBody UserView view) {
 
+        ResponseEntity<UserView> responseEntity;
+
+        responseEntity = new ResponseEntity<>(manager.update(view), HttpStatus.OK);
+
+        return responseEntity;
+    }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("id") Long id) {

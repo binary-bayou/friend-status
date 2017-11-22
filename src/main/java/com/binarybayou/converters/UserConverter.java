@@ -34,4 +34,16 @@ public class UserConverter {
 
         return domain;
     }
+
+
+/*
+    public User updateConversion(User updatedUserState, User oldUserState){
+
+        if(updatedUserState.getFirstName() == null) {
+            updatedUserState.setFirstName(oldUserState.getFirstName());
+        }
+
+        return updatedUserState;
+    }
+    */
 }
